@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>스타포스 시뮬레이션</title>
+    <link rel="stylesheet" type="text/css" href="./starforce.css" />
+    <script type="text/javascript" src="./starforce.js"></script>
+</head>
+<body>
+    <h1 id="title">스타포스 시뮬레이션</h1>
+    <table id="setTable">
+        <tr>
+            <td>
+                <p>레벨 : </p>
+            </td>
+            <td>
+                <select name="level" onchange="applyBtn();" id="level">
+                    <option value="100">100</option>
+                    <option value="110">110</option>
+                    <option value="120">120</option>
+                    <option value="130">130</option>
+                    <option value="140">140</option>
+                    <option value="150">150</option>s
+                    <option value="160" selected="selected">160</option>
+                    <option value="200">200</option>
+                </select>
+            </td>
+            <td>
+                <p>파괴횟수 : </p><p id="dest"></p>
+            </td>
+            <td>
+                <p>시행횟수 : </p><p id="tryCount"></p>
+            </td>
+        </tr>
+    </table>
+    <div id="ui">
+        <div id="star"></div>
+        <div id="notice" class="common"></div>
+        <div id="center">
+            <div id="itemImgBox">
+                <div id="itemImg">
+
+                </div>
+            </div>
+            <div id="infoBox" class="common">
+                <div id="info">
+
+                </div>
+            </div>
+        </div>
+        <div id="option">
+            <div id="catch" class="common"><p>스타캐치 설정</p><input type="number" min="0" max="5" value="0" onchange="optionBtn();" id="catchPercent"></div>
+            <div id="noDestBox" class="common"><p>파괴방지 설정</p><input type="checkbox" id="noDest" onchange="optionBtn();"></div>
+        </div>
+        <div id="priceBox" class="common">
+            <p>필요한 메소 :</p>
+            <p id="price"></p>
+        </div>
+        <div class="common">
+            <p>사용한 메소 :</p>
+            <p id="totalUse"></p>
+        </div>
+        <div id="btnBox">
+            <input type="button" id="force" onclick="force();" value="강화">
+            <input type="button" id="reset" onclick="window.location.reload();" value="초기화">
+        </div>
+    </div>
+    <br>
+    <nav>
+        <hr>
+        <p>제작 : ApteryxChan (엘리시움)<br><br>버그 발견시 <a href="mailto:kdo9921@apteryx.moe">이메일</a>이나 <a href="https://twitter.com/ApteryxChan">트위터</a>로 제보해주세요<br></p>
+    </nav>    
+    <script>
+        levelApply();
+        setInfo();
+    </script>
+</body>
+</html>
