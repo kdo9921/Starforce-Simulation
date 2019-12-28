@@ -145,8 +145,10 @@ nav {
     padding-top: 50px;
     width: 90%;
     margin: auto;
-    text-align: right;
     text-shadow: 1px 1px 5px #101010;
+}
+#copyright {
+    text-align: right;
 }
 a:link {text-decoration: none; color: #9ce159;}
 a:visited {text-decoration: none; color: #9ce159;}

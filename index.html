@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="./starforce.css" />
     <script type="text/javascript" src="./starforce.js"></script>
 </head>
-<body>
+<body onload="levelApply();setInfo();">
     <h1 id="title">스타포스 시뮬레이션</h1>
     <table id="setTable">
         <tr>
@@ -70,11 +70,24 @@
     <br>
     <nav>
         <hr>
-        <p>제작 : ApteryxChan (엘리시움)<br><br>버그 발견시 <a href="mailto:kdo9921@apteryx.moe">이메일</a>이나 <a href="https://twitter.com/ApteryxChan">트위터</a>로 제보해주세요<br>GitHub에서 보기 : <a href="https://github.com/kdo9921/Starforce-Simulation">Starforce-Simulation</a><br></p>
+        <h3>이벤트 설정</h3>
+        <input type="radio" name="event" value="noEvent" checked="checked">
+        <p>이벤트 없음</p><br>
+        <input type="radio" name="event" value="dc30p">
+        <p>강화비용 30% 할인</p><br>
+        <input type="radio" name="event" value="onePlusOne">
+        <p>10성 이하 1+1</p><br>
+        <input type="radio" name="event" value="ftft">
+        <p>5성, 10성, 15성 100%</p><br>
+        <h3>MVP/PC방 할인</h3>
+        <p>MVP 등급</p>
+        <select name="mvp" onchange="applyPrice();" id="mvp">
+        
+        </select>
+        <hr>
+        <div id="copyright">
+            <p>제작 : ApteryxChan (엘리시움)<br><br>버그 발견시 <a href="mailto:kdo9921@apteryx.moe">이메일</a>이나 <a href="https://twitter.com/ApteryxChan">트위터</a>로 제보해주세요<br>GitHub에서 보기 : <a href="https://github.com/kdo9921/Starforce-Simulation">Starforce-Simulation</a><br></p>
+        </div>
     </nav>    
-    <script>
-        levelApply();
-        setInfo();
-    </script>
 </body>
 </html>
