@@ -22,7 +22,7 @@
                     <option value="120">120</option>
                     <option value="130">130</option>
                     <option value="140">140</option>
-                    <option value="150">150</option>s
+                    <option value="150">150</option>
                     <option value="160" selected="selected">160</option>
                     <option value="200">200</option>
                 </select>
@@ -51,8 +51,8 @@
             </div>
         </div>
         <div id="option">
-            <div id="catch" class="common"><p>스타캐치 설정</p><input type="number" min="0" max="5" value="0" onchange="optionBtn();" id="catchPercent"></div>
-            <div id="noDestBox" class="common"><p>파괴방지 설정</p><input type="checkbox" id="noDest" onchange="optionBtn();"></div>
+            <div id="catch" class="common"><p>스타캐치 설정</p><input type="number" min="0" max="5" value="0" onchange="setInfo();" id="catchPercent"></div>
+            <div id="noDestBox" class="common"><p>파괴방지 설정</p><input type="checkbox" id="noDest" onchange="setInfo();"></div>
         </div>
         <div id="priceBox" class="common">
             <p>필요한 메소 :</p>
@@ -64,26 +64,33 @@
         </div>
         <div id="btnBox">
             <input type="button" id="force" onclick="force();" value="강화">
-            <input type="button" id="reset" onclick="window.location.reload();" value="초기화">
+            <input type="button" id="reset" onclick="reset();" value="초기화">
         </div>
     </div>
     <br>
     <nav>
         <hr>
         <h3>이벤트 설정</h3>
-        <input type="radio" name="event" value="noEvent" checked="checked">
+        <input type="radio" name="event" onchange="dc30p=false;onePlusOne=false;ftft100p=false;freeNoDest=false;getTotalDC();" checked="checked">
         <p>이벤트 없음</p><br>
-        <input type="radio" name="event" value="dc30p">
+        <input type="radio" name="event" onchange="dc30p=true;onePlusOne=false;ftft100p=false;freeNoDest=false;getTotalDC();">
         <p>강화비용 30% 할인</p><br>
-        <input type="radio" name="event" value="onePlusOne">
+        <input type="radio" name="event" onchange="dc30p=false;onePlusOne=true;ftft100p=false;freeNoDest=false;getTotalDC();">
         <p>10성 이하 1+1</p><br>
-        <input type="radio" name="event" value="ftft">
+        <input type="radio" name="event" onchange="dc30p=false;onePlusOne=false;ftft100p=true;freeNoDest=false;getTotalDC();">
         <p>5성, 10성, 15성 100%</p><br>
+        <input type="radio" name="event" onchange="dc30p=false;onePlusOne=false;ftft100p=false;freeNoDest=true;getTotalDC();">
+        <p>무료 파괴방지</p><br>
         <h3>MVP/PC방 할인</h3>
         <p>MVP 등급</p>
-        <select name="mvp" onchange="applyPrice();" id="mvp">
-        
+        <select name="mvp" onchange="getTotalDC();" id="mvp">
+            <option value="0">혜택 없음</option>
+            <option value="3">실버</option>
+            <option value="5">골드</option>
+            <option value="10">다이아</option>
         </select>
+        <br>
+        <input type="checkbox" id="PCcafe" onchange="applyPCcafeDC();"><p>PC방 할인</p>
         <hr>
         <div id="copyright">
             <p>제작 : ApteryxChan (엘리시움)<br><br>버그 발견시 <a href="mailto:kdo9921@apteryx.moe">이메일</a>이나 <a href="https://twitter.com/ApteryxChan">트위터</a>로 제보해주세요<br>GitHub에서 보기 : <a href="https://github.com/kdo9921/Starforce-Simulation">Starforce-Simulation</a><br></p>
