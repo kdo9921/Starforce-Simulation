@@ -46,6 +46,7 @@ body {
 #notice {
     text-align: center;
     line-height: 160%;
+    font-size: 80%;
 }
 #center {
     text-align: center;
@@ -111,10 +112,8 @@ p {
 }
 #catchPercent {
     width: 30px;
-    margin: 5px;
-    float: right;
 }
-#noDest {
+#noDest, #isCatch {
     float: right;
     margin: 3px;
     width: 24px;
@@ -149,6 +148,7 @@ nav {
 }
 #copyright {
     text-align: right;
+    margin-bottom: 20px;
 }
 a:link {text-decoration: none; color: #9ce159;}
 a:visited {text-decoration: none; color: #9ce159;}

@@ -4,7 +4,6 @@ var destroyed = 0;
 var noDestCheck = 0;
 var cost = 0;
 var totalUse = 0;
-var starCatch = 45;
 var maxStar;
 var levelIndex;
 var tryCount = 0;
@@ -16,6 +15,7 @@ var dc30p = false;
 var onePlusOne = false;
 var ftft100p = false;
 var freeNoDest = false;
+var isCatchMultiple = true;
 const costDB = [
     [41000, 81000, 121000, 161000, 201000, 241000, 281000, 321000, 0],//100
     [54200, 107500, 160700, 214000, 267200, 320400, 373700, 426900, 480200, 533400, 0],//110
@@ -90,7 +90,6 @@ function setInfo(){
         noDestCheck = 0;
         document.getElementById("noDest").value = "false";
     }
-    starCatch = 10 * document.getElementById("catchPercent").value;
     cost = costDB[levelIndex][starforce] * totalDC;
     var notice = document.getElementById("notice");
     var itemImg = document.getElementById("itemImg");
@@ -164,6 +163,17 @@ function setInfo(){
     info.innerHTML = infoTextValue;
 }
 function force(){
+    var starcatchPoint = 0;
+    var isStarcatchChecked = document.getElementById('isCatch').checked;
+    if (isStarcatchChecked) {
+        if (isCatchMultiple) {
+            starcatchPoint = percentDB[starforce][0] * document.getElementById("catchPercent").value * 0.01;
+        } else {
+            starcatchPoint = document.getElementById("catchPercent").value * 10;
+        }
+    } else {
+        starcatchPoint = 0;
+    }
     tryCount += 1;
     totalUse += cost;
     if (starforce == 0) {
@@ -177,7 +187,7 @@ function force(){
         return 0;
     }
     var luck = Math.floor(Math.random() * 1000) + 1;
-    if ((luck < starCatch + percentDB[starforce][0]) || chance == 2) {
+    if ((luck < starcatchPoint + percentDB[starforce][0]) || chance == 2) {
         starforce += 1; //강화성공
         if (onePlusOne && starforce < 12) {
             starforce += 1;
@@ -222,6 +232,12 @@ function applyBtn(){
 }
 function getTotalDC() {
     var mvpSelect = document.getElementById("mvp");
+    var isNoDestEvent = document.getElementById("freeNoDestEvent").checked;
+    if (isNoDestEvent) {
+        freeNoDest = true;
+    } else {
+        freeNoDest = false;
+    }
     mvp = Number(mvpSelect.options[mvpSelect.selectedIndex].value);
     totalDC = 1 - ((mvp + pcCafeDC) / 100);
     if (dc30p) {

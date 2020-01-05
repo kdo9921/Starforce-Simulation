@@ -51,8 +51,8 @@
             </div>
         </div>
         <div id="option">
-            <div id="catch" class="common"><p>스타캐치 설정</p><input type="number" min="0" max="5" value="0" onchange="setInfo();" id="catchPercent"></div>
-            <div id="noDestBox" class="common"><p>파괴방지 설정</p><input type="checkbox" id="noDest" onchange="setInfo();"></div>
+            <div id="catch" class="common"><p>스타캐치 사용</p><input type="checkbox" id="isCatch" checked="checked"></div>
+            <div id="noDestBox" class="common"><p>파괴방지</p><input type="checkbox" id="noDest" onchange="setInfo();"></div>
         </div>
         <div id="priceBox" class="common">
             <p>필요한 메소 :</p>
@@ -70,16 +70,20 @@
     <br>
     <nav>
         <hr>
+        <h3>스타캐치 설정</h3>
+        <input type="radio" name="starcatch" onchange="isCatchMultiple=true;" checked="checked"><p>곱적용</p>
+        <input type="radio" name="starcatch" onchange="isCatchMultiple=false;"><p>합적용</p><br>
+        <p>확률 설정(%)</p><input type="number" min="0" max="5" value="5" onchange="setInfo();" id="catchPercent">
         <h3>이벤트 설정</h3>
-        <input type="radio" name="event" onchange="dc30p=false;onePlusOne=false;ftft100p=false;freeNoDest=false;getTotalDC();" checked="checked">
+        <input type="radio" name="event" onchange="dc30p=false;onePlusOne=false;ftft100p=false;getTotalDC();" checked="checked">
         <p>이벤트 없음</p><br>
-        <input type="radio" name="event" onchange="dc30p=true;onePlusOne=false;ftft100p=false;freeNoDest=false;getTotalDC();">
+        <input type="radio" name="event" onchange="dc30p=true;onePlusOne=false;ftft100p=false;getTotalDC();">
         <p>강화비용 30% 할인</p><br>
-        <input type="radio" name="event" onchange="dc30p=false;onePlusOne=true;ftft100p=false;freeNoDest=false;getTotalDC();">
+        <input type="radio" name="event" onchange="dc30p=false;onePlusOne=true;ftft100p=false;getTotalDC();">
         <p>10성 이하 1+1</p><br>
-        <input type="radio" name="event" onchange="dc30p=false;onePlusOne=false;ftft100p=true;freeNoDest=false;getTotalDC();">
+        <input type="radio" name="event" onchange="dc30p=false;onePlusOne=false;ftft100p=true;getTotalDC();">
         <p>5성, 10성, 15성 100%</p><br>
-        <input type="radio" name="event" onchange="dc30p=false;onePlusOne=false;ftft100p=false;freeNoDest=true;getTotalDC();">
+        <input type="checkbox" id="freeNoDestEvent" onclick="getTotalDC();">
         <p>무료 파괴방지</p><br>
         <h3>MVP/PC방 할인</h3>
         <p>MVP 등급</p>
