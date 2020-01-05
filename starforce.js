@@ -16,6 +16,7 @@ var onePlusOne = false;
 var ftft100p = false;
 var freeNoDest = false;
 var isCatchMultiple = true;
+var firstLoad = true;
 const costDB = [
     [41000, 81000, 121000, 161000, 201000, 241000, 281000, 321000, 0],//100
     [54200, 107500, 160700, 214000, 267200, 320400, 373700, 426900, 480200, 533400, 0],//110
@@ -67,6 +68,13 @@ function levelApply(){
     level = levelSelect.options[levelSelect.selectedIndex].value;
     levelIndex = level / 10 - 10 == 10 ? 7 : level / 10 - 10; //200제 장비 때문에 한짓
     maxStar = maxStarArr[levelIndex];
+    if (!firstLoad) {
+        animateCSS('#background', 'fadeOut', function() {
+            document.getElementById("background").style.backgroundImage = "url('./img/background/" + level + ".jpg')"
+            animateCSS('#background', 'fadeIn');
+        });
+    }
+    firstLoad = false;
     return level;
 }
 
