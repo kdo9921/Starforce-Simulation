@@ -16,7 +16,7 @@ var onePlusOne = false;
 var ftft100p = false;
 var freeNoDest = false;
 var isCatchMultiple = true;
-var firstLoad = true;
+var preLevel = 160;
 const costDB = [
     [41000, 81000, 121000, 161000, 201000, 241000, 281000, 321000, 0],//100
     [54200, 107500, 160700, 214000, 267200, 320400, 373700, 426900, 480200, 533400, 0],//110
@@ -68,13 +68,13 @@ function levelApply(){
     level = levelSelect.options[levelSelect.selectedIndex].value;
     levelIndex = level / 10 - 10 == 10 ? 7 : level / 10 - 10; //200제 장비 때문에 한짓
     maxStar = maxStarArr[levelIndex];
-    if (!firstLoad) {
+    if (preLevel != level) {
         animateCSS('#background', 'fadeOut', function() {
             document.getElementById("background").style.backgroundImage = "url('./img/background/" + level + ".jpg')"
             animateCSS('#background', 'fadeIn');
         });
+        preLevel = level;
     }
-    firstLoad = false;
     return level;
 }
 
@@ -273,4 +273,30 @@ function reset() {
     tryCount = 0;
     starforce = 0;
     getTotalDC();
+}
+
+
+var bonobono = 0;
+function fuckbonobono() {
+    if (level == 200) { //https://twitter.com/Kerble_S2/status/1213065969259515904?s=20 이분 요청
+        animateCSS('#background', 'fadeOut', function() {
+            document.getElementById("background").style.backgroundImage = "url('https://upload.wikimedia.org/wikipedia/commons/4/48/Gay_Pride_Flag.svg')"
+            animateCSS('#background', 'fadeIn');
+        });
+    }
+    //https://twitter.com/KNOPT30427/status/1213149526044770304?s=20 이분요청
+    itemImg.style.backgroundImage = "url('https://i.pinimg.com/564x/fe/1c/9d/fe1c9db12c70749834c5875de91d7d59.jpg')"
+    const element =  document.querySelector('#itemImg');
+    element.classList.add('animated', 'pulse',);
+}
+function checkBono(){
+    if ( document.getElementById("catchPercent").value == 141) {
+        bonobono = 140;
+    }
+    if (bonobono == 140){
+        bonobono = 0;
+        fuckbonobono()
+        return 0;
+    }
+    bonobono +=1;
 }
