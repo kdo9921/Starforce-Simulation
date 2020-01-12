@@ -147,13 +147,20 @@ function force(){
         levelApply();
     }
     if ((starforce > 0) && level != levelApply()) {
-        alert("오류 : 강화도중 장비의 레벨이 변경되었습니다.");
+        if (!statisMode) {
+            alert("오류 : 강화도중 장비의 레벨이 변경되었습니다.");
+        }
     }
     if (starforce == maxStar){
-        alert("최대치까지 강화되었습니다.");
+        if (!statisMode) {
+            alert("최대치까지 강화되었습니다.");
+        }
         return 0;
     }
     var luck = Math.floor(Math.random() * 1000) + 1;
+    if (statisMode) {
+        luck = luckArr[statisTryCount] * 1000 + 1
+    } 
     if ((luck < starcatchPoint + percentDB[starforce][0]) || chance == 2) {
         starforce += 1; //강화성공
         if (onePlusOne && starforce < 12) {
@@ -179,7 +186,9 @@ function force(){
             }
         } else {
             if (starforce > 11) { //아주 가끔 버그 
-                alert("Destroyed");
+                if (!statisMode) {
+                    alert("Destroyed");
+                }
                 destroyed += 1;
                 starforce = 12;
                 chance = 0;
