@@ -1,14 +1,18 @@
 var statisMode = false;
-var startStar;
-var goalStar;
+
 var resultArr = new Array();
 var luckArr = new Array();
+var labelArr = new Array();
+var accumulateArr = new Array();
 var statisTryCount;
+var howManyTry;
+var howManyRun;
+
+
 function statis() {
-    alert("주의 : 통계모드는 아직 테스트 중인 기능이며 데이터 처리는 사용자의 기기에서 담당합니다.\n너무 큰 값을 넣거나 오류가 발생하면 브라우저가 종료될 수 있습니다.")
     statisMode = true;
-    startStar = Number(prompt("시작 강화수치를 입력해주세요"));
-    goalStar = Number(prompt("목표 강화수치를 입력해주세요"));
+    var startStar = Number(document.getElementById("statis_start").value);
+    var goalStar = Number(document.getElementById("statis_goal").value);
     if (maxStar < goalStar) {
         alert("오류 : 목표 강화수치가 현재 강화중인 장비의 최대 강화 수치보다 높습니다");
         statisMode = false;
@@ -19,9 +23,9 @@ function statis() {
         statisMode = false;
         return 0;
     }
-    var howManyTry = Number(prompt("한 장비당 최대 시도 횟수를 입력하세요", 100));
-    var howManyRun = Number(prompt("표본 갯수를 입력하세요\n값이 클수록 오차가 적은 값을 얻을 수 있지만 계산하는데 많은 시간이 걸립니다.", 100));
-    for (var i = 0; i < howManyTry; i++) {
+    howManyTry = Number(document.getElementById("statis_hmt").value);
+    howManyRun = Number(document.getElementById("statis_hmr").value);
+    for (var i = 0; i < howManyTry + 1; i++) {
         resultArr[i] = 0;
     }
     
@@ -33,16 +37,78 @@ function statis() {
     
    
     for(var i = 0; i < howManyRun; i++) {
+        setluck()
         statisTryCount = 0;
         starforce = startStar;
-        for (var i = 0; i < howManyTry; i++) {
+        for (var j = 0; j < howManyTry; j++) {
             if (starforce < goalStar) {
                 force();
-                setInfo();
                 statisTryCount += 1;
             } else {break;}
         }
-        resultArr[statisTryCount];
+        resultArr[statisTryCount] += 1;
     }
-    alert("done!\n" + resultArr);
+    setInfo();
+    document.getElementById('statis_graph').style.display = "block";
+    const element =  document.querySelector('#statis_graph')
+    element.classList.add('animated', 'slideInUp')
+    makeChart();
+    resultArr.splice(0)
+    statisMode = false;
 }
+
+function makeChart() {
+    accumulateArr.splice(0);
+    labelArr.splice(0);
+    var ctx = document.getElementById('sfChart').getContext('2d');
+    
+    for (var i = 0; i < howManyTry; i++) {
+        labelArr[i] = i+1;
+        accumulateArr[i] = 0;
+    }
+    
+    for (var i = 0; i < howManyTry; i++) {
+        for (var j = 0; j <= i; j++) {
+            accumulateArr[i] += resultArr[j];
+        }
+    }
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labelArr,
+            datasets: [{
+                label: '스타포스 통계',
+                data: accumulateArr,
+                
+                backgroundColor: [
+                    'rgba(76, 175, 80, 1)'
+                ],
+                borderColor: [
+                    'rgba(173, 255, 47, 1)'
+                ],
+                
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: false,
+            title: {
+                display: true,
+                text: '스타포스 통계',
+                fontSize: 24
+            },
+            legend: {
+                hidden: true
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    
+}
+

@@ -8,6 +8,7 @@
     <script type="text/javascript" src="./animate.js"></script>
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script type="text/javascript" src="./db.js"></script>
     <script type="text/javascript" src="./main.js"></script>
     <script type="text/javascript" src="./statis.js"></script>
@@ -101,7 +102,29 @@
         <br>
         <input type="checkbox" id="PCcafe" onchange="applyPCcafeDC();"><p>PC방 할인</p>
         <hr>
-        <div id="statis"></div>
+        <div id="statis">
+            <h3>통계(Beta)</h3>
+            <p>주의 : 통계모드는 아직 테스트 중인 기능이며 데이터 처리는 사용자의 기기에서 처리합니다. 너무 큰 값을 넣거나 오류가 발생하면 브라우저가 종료될 수 있습니다.</p><br>
+            <ul>
+                <li>
+                    <input type="number" min="0"  value="12" id="statis_start"><p>시작 별 갯수</p>
+                </li>
+                <li>
+                    <input type="number" min="1"  value="15" id="statis_goal"><p>목표 별 갯수</p>
+                </li>
+                <li>
+                    <input type="number" min="1"  value="300" id="statis_hmt"><p>한 장비당 최대 시도 횟수</p>
+                </li>
+                <li>
+                    <input type="number" min="1"  value="1000" id="statis_hmr"><p>표본 장비 갯수</p>
+                </li>
+            </ul><br>
+            <input type="button" id="statis_btn" onclick="statis();" value="통계 내기" style="width: 80px;"><br>
+            <div id="statis_graph">
+                <canvas id="sfChart"></canvas>
+            </div>
+            <hr>
+        </div>
         <div id="copyright">
             <p>제작 : ApteryxChan (엘리시움)<br><br>버그 발견시 <a href="mailto:kdo9921@apteryx.moe">이메일</a>이나 <a href="https://twitter.com/ApteryxChan">트위터</a>로 제보해주세요<br>GitHub에서 보기 : <a href="https://github.com/kdo9921/Starforce-Simulation">Starforce-Simulation</a><br></p>
         </div>

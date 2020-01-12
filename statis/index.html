@@ -12,8 +12,50 @@
 </head>
 <body>
     <h1>스타포스 통계</h1>
-    시작 강화수치 : <input type="number">
-    목표 깅화수치 <input type="number">
-</script>
+    <div id="setting">
+    <p>시행 횟수 : </p><input type="number" value="10000" min="1"  id="hmr"><br>
+    <p>최대 강화 시도 횟수 : </p><input type="number" value="300" min="1"  id="hmt"><br>
+    <p>시작 강화수치 : </p><input type="number" value="12" min="0" max="24" id="start"><br>
+    <p>목표 강화수치 : </p><input type="number" value="15" min="1" max="25" id="goal"><br>
+    <p>파괴방지 사용</p><input id="noDest" type="checkbox" checked="checked"><br>
+    <p>레벨 선택</p>
+    <select name="level" onchange="applyBtn();" id="level">
+        <option value="100">100</option>
+        <option value="110">110</option>
+        <option value="120">120</option>
+        <option value="130">130</option>
+        <option value="140">140</option>
+        <option value="150">150</option>
+        <option value="160" selected="selected">160</option>
+        <option value="200">200</option>
+    </select>
+    <h3>스타캐치 설정</h3>
+    <input type="radio" name="starcatch" onchange="isCatchMultiple=true;" checked="checked"><p>곱적용</p>
+    <input type="radio" name="starcatch" onchange="isCatchMultiple=false;"><p>합적용</p><br>
+    <p>확률 설정(%)</p><input type="number" min="0" max="5" value="5" onchange="setInfo();" id="catchPercent"><br>
+    <p>스타캐치 사용을 원치 않으시면 0을 넣으세요</p>
+    <h3>이벤트 설정</h3>
+    <input type="radio" name="event" onchange="dc30p=false;onePlusOne=false;ftft100p=false;" checked="checked">
+    <p>이벤트 없음</p><br>
+    <input type="radio" name="event" onchange="dc30p=true;onePlusOne=false;ftft100p=false;">
+    <p>강화비용 30% 할인</p><br>
+    <input type="radio" name="event" onchange="dc30p=false;onePlusOne=true;ftft100p=false;">
+    <p>10성 이하 1+1</p><br>
+    <input type="radio" name="event" onchange="dc30p=false;onePlusOne=false;ftft100p=true;">
+    <p>5성, 10성, 15성 100%</p><br>
+    <input type="checkbox" id="freeNoDestEvent">
+    <p>무료 파괴방지</p><br>
+    <h3>MVP/PC방 할인</h3>
+    <p>MVP 등급</p>
+    <select name="mvp" id="mvp">
+        <option value="0">혜택 없음</option>
+        <option value="3">실버</option>
+        <option value="5">골드</option>
+        <option value="10">다이아</option>
+    </select>
+    <br>
+    <input type="checkbox" id="PCcafe"><p>PC방 할인</p><br>
+    <button id="btnDone" onclick="checkSetting();">설정 완료</button>
+    </div>
 </body>
 </html>

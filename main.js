@@ -130,7 +130,7 @@ function setInfo(){
     info.innerHTML = infoTextValue;
 }
 function force(){
-    var starcatchPoint = 0;
+    var starcatchPoint;
     var isStarcatchChecked = document.getElementById('isCatch').checked;
     if (isStarcatchChecked) {
         if (isCatchMultiple) {
@@ -159,7 +159,7 @@ function force(){
     }
     var luck = Math.floor(Math.random() * 1000) + 1;
     if (statisMode) {
-        luck = luckArr[statisTryCount] * 1000 + 1
+        luck = luckArr[statisTryCount] * 1000 + 1;
     } 
     if ((luck < starcatchPoint + percentDB[starforce][0]) || chance == 2) {
         starforce += 1; //강화성공
@@ -195,6 +195,9 @@ function force(){
                 //장비파괴
             }
         }
+    }
+    if (statisMode) {
+        return 0;
     }
     setInfo();
 }
