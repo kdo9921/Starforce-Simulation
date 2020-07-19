@@ -109,7 +109,7 @@ body {
     margin-right: 0;
     height: 30px;
 }
-#noDestBox {
+#preventDestroyBox {
     float: right;
     display: inline-block;
     width: calc(50% - 10px);
@@ -126,7 +126,7 @@ p {
 #catchPercent {
     width: 30px;
 }
-#noDest, #isCatch {
+#preventDestroy, #isCatch {
     float: right;
     margin: 3px;
     width: 24px;
