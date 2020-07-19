@@ -29,6 +29,12 @@ body {
     margin-bottom: 30px;
     text-shadow: 2px 2px 2px rgba(0,0,0,0.4);
 }
+#site_notice {
+    margin-left: calc(5% + env(safe-area-inset-left));
+    color: #fff;
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+    margin-bottom: 20px;
+}
 #star {
     border: none;
     text-align: center;
