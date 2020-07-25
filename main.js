@@ -27,7 +27,6 @@ function reset() {
     forceValue.totalUseCost = 0;
     forceValue.destroyCount = 0;
     forceValue.tryCount = 0;
-    setValue();
 }
 
 function addComma(num) {    //숫자 3자리씩 끈어 컴마 넣어줌
