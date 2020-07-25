@@ -1,114 +1,64 @@
-var statisMode = false;
-
-var resultArr = new Array();
-var luckArr = new Array();
-var labelArr = new Array();
-var accumulateArr = new Array();
-var statisTryCount;
-var howManyTry;
-var howManyRun;
-
-
-function statis() {
-    statisMode = true;
-    var startStar = Number(document.getElementById("statis_start").value);
-    var goalStar = Number(document.getElementById("statis_goal").value);
-    if (maxStar < goalStar) {
-        alert("오류 : 목표 강화수치가 현재 강화중인 장비의 최대 강화 수치보다 높습니다");
-        statisMode = false;
-        return 0;
-    }
-    if (startStar >= goalStar) {
-        alert("오류 : 시작 강화수치가 목표 강화수치보다 높습니다");
-        statisMode = false;
-        return 0;
-    }
-    howManyTry = Number(document.getElementById("statis_hmt").value);
-    howManyRun = Number(document.getElementById("statis_hmr").value);
-    for (var i = 0; i < howManyTry + 1; i++) {
-        resultArr[i] = 0;
-    }
-    
-    function setluck() {
-        for (var i = 0; i < howManyTry; i++) {
-            luckArr[i] = Math.random();
-        }
-    }
-    
-   
-    for(var i = 0; i < howManyRun; i++) {
-        setluck()
-        statisTryCount = 0;
-        starforce = startStar;
-        for (var j = 0; j < howManyTry; j++) {
-            if (starforce < goalStar) {
-                force();
-                statisTryCount += 1;
-            } else {break;}
-        }
-        resultArr[statisTryCount] += 1;
-    }
-    setInfo();
-    document.getElementById('statis_graph').style.display = "block";
-    const element =  document.querySelector('#statis_graph')
-    element.classList.add('animated', 'slideInUp')
-    makeChart();
-    resultArr.splice(0)
-    statisMode = false;
+var statis = {
+    modeOn : false,
+    tryCount : 0,   //한 장비당 강화 시도 카운트
+    start : 0,
+    goal : 0,
+    numOfTry : 0   //통계낼 장비의 수
 }
-
-function makeChart() {
-    accumulateArr.splice(0);
-    labelArr.splice(0);
-    var ctx = document.getElementById('sfChart').getContext('2d');
-    
-    for (var i = 0; i < howManyTry; i++) {
-        labelArr[i] = i+1;
-        accumulateArr[i] = 0;
-    }
-    
-    for (var i = 0; i < howManyTry; i++) {
-        for (var j = 0; j <= i; j++) {
-            accumulateArr[i] += resultArr[j];
-        }
-    }
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labelArr,
-            datasets: [{
-                label: '스타포스 통계',
-                data: accumulateArr,
-                
-                backgroundColor: [
-                    'rgba(76, 175, 80, 1)'
-                ],
-                borderColor: [
-                    'rgba(173, 255, 47, 1)'
-                ],
-                
-                borderWidth: 0
-            }]
-        },
-        options: {
-            responsive: false,
-            title: {
-                display: true,
-                text: '스타포스 통계',
-                fontSize: 24
-            },
-            legend: {
-                hidden: true
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-    
+var statisResult = {
+    max : 0,
+    min : 0,
+    sum : 0
 }
-
+var statisArr = new Object();
+statisArr.useMeso = new Array();
+statisArr.tryCount = new Array();
+function resetArr() {
+    statisArr.useMeso.splice(0);
+    statisArr.tryCount.splice(0);
+}
+function showStatis() {
+    for (var i = 0; i < statis.numOfTry; i++) {
+        console.log(i + "번째 시도");
+        console.log("\t사용 메소 : " + addComma(statisArr.useMeso[i]));
+        console.log("\t강화 횟수 : " + statisArr.tryCount[i]);
+    }
+    console.log("\n\n평균 사용 메소 : " + addComma(Math.round(statisResult.sum / statis.numOfTry)));
+    console.log("\n\n최대 사용 메소 : " + addComma(statisResult.max));
+    console.log("\n\n최저 사용 메소 : " + addComma(statisResult.min));
+}
+function startStatis() {
+    statis.modeOn = true;
+    resetArr();
+    for (var i = 0; i < statis.numOfTry; i++) {
+        reset()
+        itemState.currentStar = statis.start;
+        while(itemState.currentStar < statis.goal) {
+            force();
+        }
+        statisArr.useMeso[i] = forceValue.totalUseCost;
+        statisArr.tryCount[i] = forceValue.tryCount;
+        if (statisResult.max < forceValue.totalUseCost) {
+            statisResult.max = forceValue.totalUseCost;
+        }
+        if (forceValue.totalUseCost < statisResult.min || i == 0) {
+            statisResult.min = forceValue.totalUseCost;
+        }
+        statisResult.sum += forceValue.totalUseCost;
+    }
+    statis.modeOn = false;
+    showStatis();
+}
+function setStatis() {
+    statis.start = Number(prompt("시작"));
+    statis.goal = Number(prompt("끝"));
+    if (statis.start >= statis.goal) {
+        alert("오류 : 시작값은 목표값보다 작아야합니다");
+        return; 
+    }
+    statis.numOfTry = prompt("시행횟수");
+    statisResult.max = 0;
+    statisResult.min = 0;
+    statisResult.sum = 0;
+    startStatis();
+}

@@ -21,7 +21,7 @@ var discount = {
 }
 
 function reset() {
-    console.log("reset");
+    //console.log("reset");
     itemState.chanceTime = 0;
     itemState.currentStar = 0;
     forceValue.totalUseCost = 0;
@@ -66,13 +66,13 @@ function setDiscount() {
     }
     discount.totalDiscount = Number(sumDiscount);
     if (discount.event == 3 && itemState.currentStar == 15) {
-        console.log("15성 100% 이벤트로 인한 파괴방지 미적용") 
+        //console.log("15성 100% 이벤트로 인한 파괴방지 미적용") 
         document.getElementById("preventDestroy").disabled = true;
         return;
     }
     if (12 <= itemState.currentStar && itemState.currentStar < 17 &&  forceValue.isPreventDestroy) {
         if(discount.freePreventDestroy && itemState.currentStar < 15) {
-            console.log("15성 이하 무료 파방으로 인한 파괴방지 미적용");
+            //console.log("15성 이하 무료 파방으로 인한 파괴방지 미적용");
             return;
         }
         discount.totalDiscount += 1.0;
@@ -205,7 +205,10 @@ function setValue() {   //설정을 읽어 수치를 조정하고 showInfo()를 
 
     forceValue.currentCost = costDB[itemState.itemLevelIndex][itemState.currentStar];
     forceValue.currentCost = forceValue.currentCost * discount.totalDiscount;
-    showInfo();
+
+    if (!statis.modeOn) {
+        showInfo();
+    }
 }
 function checkMaxStr() {    //최대 강화수치에 도달했으면 참을 반환
     if (itemState.currentStar == maxStarArr[itemState.itemLevelIndex]) {
@@ -231,32 +234,36 @@ function force() {  //강화
     var otherSuccessReason = false;
 
     if (itemState.chanceTime == 2) {
-        console.log("찬스타임으로 인한 강화 성공 확률 100% 적용");
+        //console.log("찬스타임으로 인한 강화 성공 확률 100% 적용");
         otherSuccessReason = true;
     } else if (discount.event == 3 && (itemState.currentStar == 5 || itemState.currentStar == 10 || itemState.currentStar == 15)) {
-        console.log("5, 10, 15성 100% 이벤트에 의한 강화 성공 확률 100% 적용");
+        //console.log("5, 10, 15성 100% 이벤트에 의한 강화 성공 확률 100% 적용");
         otherSuccessReason = true;
     }
     if (luck < successCase || otherSuccessReason) {   //성공
-        console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 성공 (파방 적용 : " + forceValue.isPreventDestroy + ")");
+        //console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 성공 (파방 적용 : " + forceValue.isPreventDestroy + ")");
         itemState.currentStar += 1;
         itemState.chanceTime = 0;
     } else if (destroyCase < luck && !forceValue.isPreventDestroy) {    //파괴
-        console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 실패 & 장비 파괴 (파방 적용 : " + forceValue.isPreventDestroy + ")");
+        //console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 실패 & 장비 파괴 (파방 적용 : " + forceValue.isPreventDestroy + ")");
         itemState.currentStar = 12;
         forceValue.destroyCount += 1;
-        alert("Destroyed");
+        if(!statis.modeOn) {
+            alert("Destroyed");
+        }
     } else {    //실패 or 하락
         if (itemState.currentStar < 10 || itemState.currentStar % 5 == 0) {  //10성 이하 & 15, 20성
-            console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 실패 (파방 적용 : " + forceValue.isPreventDestroy + ")");
+            //console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 실패 (파방 적용 : " + forceValue.isPreventDestroy + ")");
             //그러나 아무 일도 일어나지 않았다.
         } else {    //하락
-            console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 실패 & 강화 단계 하락 (파방 적용 : " + forceValue.isPreventDestroy + ")");
+            //console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 실패 & 강화 단계 하락 (파방 적용 : " + forceValue.isPreventDestroy + ")");
             itemState.currentStar -= 1;
             itemState.chanceTime += 1;
         }
     }
     forceValue.tryCount += 1;
     forceValue.totalUseCost += forceValue.currentCost;
-    setValue();
+    if(!statis.modeOn) {
+        setValue();
+    }
 }
