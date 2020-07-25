@@ -21,11 +21,13 @@ var discount = {
 }
 
 function reset() {
+    console.log("reset");
     itemState.chanceTime = 0;
     itemState.currentStar = 0;
     forceValue.totalUseCost = 0;
     forceValue.destroyCount = 0;
     forceValue.tryCount = 0;
+    setValue();
 }
 
 function addComma(num) {    //숫자 3자리씩 끈어 컴마 넣어줌
@@ -64,8 +66,14 @@ function setDiscount() {
         sumDiscount = (sumDiscount * 0.7).toFixed(3);
     }
     discount.totalDiscount = Number(sumDiscount);
-    if (12 <= itemState.currentStar && forceValue.isPreventDestroy) {
+    if (discount.event == 3 && itemState.currentStar == 15) {
+        console.log("15성 100% 이벤트로 인한 파괴방지 미적용") 
+        document.getElementById("preventDestroy").disabled = true;
+        return;
+    }
+    if (12 <= itemState.currentStar && itemState.currentStar < 17 &&  forceValue.isPreventDestroy) {
         if(discount.freePreventDestroy && itemState.currentStar < 15) {
+            console.log("15성 이하 무료 파방으로 인한 파괴방지 미적용");
             return;
         }
         discount.totalDiscount += 1.0;
@@ -166,7 +174,6 @@ function setValue() {   //설정을 읽어 수치를 조정하고 showInfo()를 
     if (12 <= itemState.currentStar && itemState.currentStar < 17) {
         document.getElementById("preventDestroy").disabled = false;
         isPreventDestroyActive = document.getElementById("preventDestroy").checked;
-        forceValue.isPreventDestroy = isPreventDestroyActive;
         if (itemState.currentStar < 15) {
             discount.freePreventDestroy = document.getElementById("freePreventDestroyEvent").checked;
             if (discount.freePreventDestroy) {
@@ -174,6 +181,8 @@ function setValue() {   //설정을 읽어 수치를 조정하고 showInfo()를 
             }
         }
     }
+    forceValue.isPreventDestroy = isPreventDestroyActive;
+    
     //MVP 값 가져옴
     discount.mvp = document.getElementById("mvp").selectedIndex;
     //PC방인가?
@@ -220,26 +229,30 @@ function force() {  //강화
     }
     var destroyCase = 1000 - percentDB[itemState.currentStar][3]
     var luck = Math.floor(Math.random() * 1000);
-    console.log(luck);
     var otherSuccessReason = false;
 
     if (itemState.chanceTime == 2) {
+        console.log("찬스타임으로 인한 강화 성공 확률 100% 적용");
         otherSuccessReason = true;
     } else if (discount.event == 3 && (itemState.currentStar == 5 || itemState.currentStar == 10 || itemState.currentStar == 15)) {
+        console.log("5, 10, 15성 100% 이벤트에 의한 강화 성공 확률 100% 적용");
         otherSuccessReason = true;
     }
-
     if (luck < successCase || otherSuccessReason) {   //성공
+        console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 성공 (파방 적용 : " + forceValue.isPreventDestroy + ")");
         itemState.currentStar += 1;
         itemState.chanceTime = 0;
     } else if (destroyCase < luck && !forceValue.isPreventDestroy) {    //파괴
+        console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 실패 & 장비 파괴 (파방 적용 : " + forceValue.isPreventDestroy + ")");
         itemState.currentStar = 12;
         forceValue.destroyCount += 1;
         alert("Destroyed");
     } else {    //실패 or 하락
         if (itemState.currentStar < 10 || itemState.currentStar % 5 == 0) {  //10성 이하 & 15, 20성
+            console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 실패 (파방 적용 : " + forceValue.isPreventDestroy + ")");
             //그러나 아무 일도 일어나지 않았다.
         } else {    //하락
+            console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 실패 & 강화 단계 하락 (파방 적용 : " + forceValue.isPreventDestroy + ")");
             itemState.currentStar -= 1;
             itemState.chanceTime += 1;
         }
