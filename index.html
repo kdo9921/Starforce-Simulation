@@ -9,6 +9,7 @@
         gtag('js', new Date());
         gtag('config', 'UA-69835851-5');
     </script>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -120,6 +121,18 @@
         </select>
         <br>
         <input type="checkbox" id="PCcafe" onchange="setValue();"><p>PC방 할인</p>
+        <hr>
+        <h3>통계</h3>
+        <p><span style="color: red">경고 </span>사용자의 기기에서 계산하며 23성 이상의 목표나 너무 큰 시행횟수를 넣을경우 스타포스 시뮬레이션이나 실행중인 다른 프로그램이 비정상적으로 종료될 수 있습니다.</p><br>
+        <p>시작 강화 수치</p><input type="number" min="0" max="24" value="12" id="statisStartStar"><br>
+        <p>목표 강화 수치</p><input type="number" min="0" max="25" value="15" id="statisGoalStar"><br>
+        <p>시행 횟수</p><input type="number" min="1" value="100" id="statisNumOfTry"><br>
+        <p>파괴시 복구비용</p><input type="number" value="0" id="statisRestore"><br>
+        <input type="button" id="btnStatis" onclick="setStatis();" value="통계내기">
+        <div id="statisResult"></div>
+        <div id="chart">
+            
+        </div>
         <hr>
         <div id="copyright">
             <p>제작 : ApteryxChan (엘리시움)<br><br>버그 발견시 <a href="mailto:kdo9921@apteryx.moe">이메일</a>이나 <a href="https://twitter.com/ApteryxChan">트위터</a>로 제보해주세요<br>GitHub에서 보기 : <a href="https://github.com/kdo9921/Starforce-Simulation">Starforce-Simulation</a><br></p>

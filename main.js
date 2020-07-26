@@ -137,29 +137,29 @@ function showInfo() {   //문서에 값을 넣음
 
     //확률 정보 표시 
     var infoText = "";
-    infoText = itemState.currentStar + "성 > " + (itemState.currentStar + 1) + "성<br>";
+    infoText = "<div>" + itemState.currentStar + "성 > " + (itemState.currentStar + 1) + "성</div>";
     if (discount.event == 1 && itemState.currentStar < 11) {
-        infoText = itemState.currentStar + "성 > " + (itemState.currentStar + 2) + "성<br>";
+        infoText = "<div>" + itemState.currentStar + "성 > " + (itemState.currentStar + 2) + "성</div>";
     }
     if (itemState.chanceTime == 2) {
-        infoText += "성공확률 100%"
+        infoText += "<div>성공확률 100%</div>"
     } else {
-        infoText += "성공확률 : " + (percentDB[itemState.currentStar][0] * 0.1).toFixed(1) + "%";
+        infoText += "<div>성공확률 : " + (percentDB[itemState.currentStar][0] * 0.1).toFixed(1) + "%</div>";
         if (itemState.currentStar < 11 || itemState.currentStar == 15 || itemState.currentStar == 20){
-            infoText += "<br>실패(유지)확률 : " +((discount.freePreventDestroy?percentDB[itemState.currentStar][1]+percentDB[itemState.currentStar][3]:percentDB[itemState.currentStar][1]) * 0.1).toFixed(1) + "%";
+            infoText += "<div>실패(유지)확률 : " +((discount.freePreventDestroy?percentDB[itemState.currentStar][1]+percentDB[itemState.currentStar][3]:percentDB[itemState.currentStar][1]) * 0.1).toFixed(1) + "%</div>";
         } else {
-            infoText += "<br>실패(하락)확률 : " + ((discount.freePreventDestroy?percentDB[itemState.currentStar][2]+percentDB[itemState.currentStar][3]:percentDB[itemState.currentStar][2]) * 0.1).toFixed(1) + "%";
+            infoText += "<div>실패(하락)확률 : " + ((discount.freePreventDestroy?percentDB[itemState.currentStar][2]+percentDB[itemState.currentStar][3]:percentDB[itemState.currentStar][2]) * 0.1).toFixed(1) + "%</div>";
         }
         if (itemState.currentStar > 11 && !discount.freePreventDestroy) {
-            infoText += "<br>파괴확률 : " + (percentDB[itemState.currentStar][3] * 0.1).toFixed(1) + "%";
+            infoText += "<div>파괴확률 : " + (percentDB[itemState.currentStar][3] * 0.1).toFixed(1) + "%</div>";
         }
         if (discount.event == 3 && itemState.currentStar < 16 && itemState.currentStar % 5 == 0) {
-            infoText = itemState.currentStar + "성 > " + (itemState.currentStar + 1) + "성<br>성공확률 100%";
+            infoText = "<div>" + itemState.currentStar + "성 > " + (itemState.currentStar + 1) + "성</div><div>성공확률 100%</div>";
         }
     }
     
     if (itemState.currentStar == maxStarArr[itemState.itemLevelIndex]) {
-        infoText = itemState.currentStar + "성<br><br>최대치까지 강화되었습니다";
+        infoText = "<div>" + itemState.currentStar + "성</div><div>최대치까지 강화되었습니다<div>";
     }
     info.innerHTML = infoText;
 }
