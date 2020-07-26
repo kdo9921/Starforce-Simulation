@@ -89,8 +89,8 @@
             <p id="totalUse"></p>
         </div>
         <div id="btnBox">
-            <input type="button" id="force" onclick="force();" value="강화">
-            <input type="button" id="reset" onclick="reset();setValue();" value="초기화">
+            <button id="force" onclick="force();" value="강화">강화</button>
+            <button id="reset" onclick="reset();setValue();" value="초기화">초기화</button>
         </div>
     </div>
     <br>
@@ -128,7 +128,7 @@
         <p>목표 강화 수치</p><input type="number" min="0" max="25" value="15" id="statisGoalStar"><br>
         <p>시행 횟수</p><input type="number" min="1" value="100" id="statisNumOfTry"><br>
         <p>파괴시 복구비용</p><input type="number" value="0" id="statisRestore"><br>
-        <input type="button" id="btnStatis" onclick="setStatis();" value="통계내기">
+        <button id="btnStatis" onclick="setStatis();" value="통계내기">통계내기</button>
         <div id="statisResult"></div>
         <div id="chart">
             
