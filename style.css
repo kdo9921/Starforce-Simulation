@@ -12,6 +12,7 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
+input,button {border-radius:0;-webkit-appearance:none} 
 #background {
     width: 100%;
     height: 100%;
@@ -153,7 +154,6 @@ p {
     background-color: #4CAF50;
     border-radius: 5px;
     border: none;
-    -webkit-appearance: none;
     box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
     font-weight: bold;
 }
@@ -166,7 +166,6 @@ p {
     background-color: #C0C0C0;
     border-radius: 5px;
     border: none;
-    -webkit-appearance: none;
     box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
     font-weight: bold;
 }
@@ -177,7 +176,6 @@ p {
     background-color: orange;
     border-radius: 5px;
     border: none;
-    -webkit-appearance: none;
     box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
     font-weight: bold;
 }
