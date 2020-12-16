@@ -15,7 +15,7 @@ var forceValue = {
 var discount = {
     isPcCafe : false,
     mvp : 0, // 0 : 없음, 1 : 실버(3%), 2: 골드(5%), 3 : 다이아(10%)
-    event : 0, // 0 ; 이벤트 없음, 1 : 1+1, 2 : 30% 할인, 3 : 5,10,15성 100% 성공
+    event : 0, // 0 ; 이벤트 없음, 1 : 1+1, 2 : 30% 할인, 3 : 5,10,15星 100% 星공
     freePreventDestroy : false,
     totalDiscount : 1.00
 }
@@ -66,13 +66,13 @@ function setDiscount() {
     }
     discount.totalDiscount = Number(sumDiscount);
     if (discount.event == 3 && itemState.currentStar == 15) {
-        //console.log("15성 100% 이벤트로 인한 파괴방지 미적용") 
+        //console.log("15星 100% 이벤트로 인한 파괴방지 미적용") 
         document.getElementById("preventDestroy").disabled = true;
         return;
     }
     if (12 <= itemState.currentStar && itemState.currentStar < 17 &&  forceValue.isPreventDestroy) {
         if(discount.freePreventDestroy && itemState.currentStar < 15) {
-            //console.log("15성 이하 무료 파방으로 인한 파괴방지 미적용");
+            //console.log("15星 이하 무료 파방으로 인한 파괴방지 미적용");
             return;
         }
         discount.totalDiscount += 1.0;
@@ -107,15 +107,15 @@ function showInfo() {   //문서에 값을 넣음
 
     //notice 내용 표시
     if (itemState.chanceTime == 2) {
-        notice.innerHTML = "찬스타임!";
-    } else if (itemState.currentStar <= 10){
-        notice.innerHTML = "메소를 사용하여 장비를 강화합니다";
+        notice.innerHTML = "찬스타임!"; // 国服无 chance time
+    } else if (itemState.currentStar <= 5){
+        notice.innerHTML = "使用星星，强化装备。";
     } else {
-        notice.innerHTML = "실패시 장비가 파괴되서나 강화 단계가 하락할 수 있습니다";
+        notice.innerHTML = "失败时，装备可能会损坏或等级下降。";
         if (itemState.currentStar == 11) {
-            notice.innerHTML = "실패시 강화 단계가 하락할 수 있습니다";
+            notice.innerHTML = "失败时，装备可能会损坏或等级下降。";
         } else if (itemState.currentStar == 15 || itemState.currentStar == 20){
-            notice.innerHTML = "실패시 장비가 파괴될 수 있습니다";
+            notice.innerHTML = "失败时，装备可能会损坏。";
         }
     }
 
@@ -137,29 +137,29 @@ function showInfo() {   //문서에 값을 넣음
 
     //확률 정보 표시 
     var infoText = "";
-    infoText = "<div>" + itemState.currentStar + "성 > " + (itemState.currentStar + 1) + "성</div>";
+    infoText = "<div>" + itemState.currentStar + "星 > " + (itemState.currentStar + 1) + "星</div>";
     if (discount.event == 1 && itemState.currentStar < 11) {
-        infoText = "<div>" + itemState.currentStar + "성 > " + (itemState.currentStar + 2) + "성</div>";
+        infoText = "<div>" + itemState.currentStar + "星 > " + (itemState.currentStar + 2) + "星</div>";
     }
     if (itemState.chanceTime == 2) {
-        infoText += "<div>성공확률 100%</div>"
+        infoText += "<div>成功概率 100%</div>"
     } else {
-        infoText += "<div>성공확률 : " + (percentDB[itemState.currentStar][0] * 0.1).toFixed(1) + "%</div>";
-        if (itemState.currentStar < 11 || itemState.currentStar == 15 || itemState.currentStar == 20){
-            infoText += "<div>실패(유지)확률 : " +((discount.freePreventDestroy?percentDB[itemState.currentStar][1]+percentDB[itemState.currentStar][3]:percentDB[itemState.currentStar][1]) * 0.1).toFixed(1) + "%</div>";
+        infoText += "<div>成功概率 : " + (percentDB[itemState.currentStar][0] * 0.1).toFixed(1) + "%</div>";
+        if (itemState.currentStar < 6 || itemState.currentStar == 10 || itemState.currentStar == 15 || itemState.currentStar == 20){
+            infoText += "<div>失败(保持)概率 : " +((discount.freePreventDestroy?percentDB[itemState.currentStar][1]+percentDB[itemState.currentStar][3]:percentDB[itemState.currentStar][1]) * 0.1).toFixed(1) + "%</div>";
         } else {
-            infoText += "<div>실패(하락)확률 : " + ((discount.freePreventDestroy?percentDB[itemState.currentStar][2]+percentDB[itemState.currentStar][3]:percentDB[itemState.currentStar][2]) * 0.1).toFixed(1) + "%</div>";
+            infoText += "<div>失败(下降)概率 : " + ((discount.freePreventDestroy?percentDB[itemState.currentStar][2]+percentDB[itemState.currentStar][3]:percentDB[itemState.currentStar][2]) * 0.1).toFixed(1) + "%</div>";
         }
-        if (itemState.currentStar > 11 && !discount.freePreventDestroy) {
-            infoText += "<div>파괴확률 : " + (percentDB[itemState.currentStar][3] * 0.1).toFixed(1) + "%</div>";
+        if (itemState.currentStar > 10 && !discount.freePreventDestroy) {
+            infoText += "<div>损坏概率 : " + (percentDB[itemState.currentStar][3] * 0.1).toFixed(1) + "%</div>";
         }
         if (discount.event == 3 && itemState.currentStar < 16 && itemState.currentStar % 5 == 0) {
-            infoText = "<div>" + itemState.currentStar + "성 > " + (itemState.currentStar + 1) + "성</div><div>성공확률 100%</div>";
+            infoText = "<div>" + itemState.currentStar + "星 > " + (itemState.currentStar + 1) + "星</div><div>成功概率 100%</div>";
         }
     }
     
     if (itemState.currentStar == maxStarArr[itemState.itemLevelIndex]) {
-        infoText = "<div>" + itemState.currentStar + "성</div><div>최대치까지 강화되었습니다<div>";
+        infoText = "<div>" + itemState.currentStar + "星</div><div>装备已达到强化上限，无法继续强化。<div>";
     }
     info.innerHTML = infoText;
 }
@@ -219,7 +219,7 @@ function checkMaxStr() {    //최대 강화수치에 도달했으면 참을 반�
 function force() {  //강화
     setValue();
     if (checkMaxStr()) {
-        alert('최대치까지 강화되었습니다');
+        alert('装备已达到强化上限，无法继续强化。');
         return 0;
     }
 
@@ -234,31 +234,31 @@ function force() {  //강화
     var otherSuccessReason = false;
 
     if (itemState.chanceTime == 2) {
-        //console.log("찬스타임으로 인한 강화 성공 확률 100% 적용");
+        //console.log("찬스타임으로 인한 강화 星공 확률 100% 적용");
         otherSuccessReason = true;
     } else if (discount.event == 3 && (itemState.currentStar == 5 || itemState.currentStar == 10 || itemState.currentStar == 15)) {
-        //console.log("5, 10, 15성 100% 이벤트에 의한 강화 성공 확률 100% 적용");
+        //console.log("5, 10, 15星 100% 이벤트에 의한 강화 星공 확률 100% 적용");
         otherSuccessReason = true;
     }
-    if (luck < successCase || otherSuccessReason) {   //성공
-        //console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 성공 (파방 적용 : " + forceValue.isPreventDestroy + ")");
+    if (luck < successCase || otherSuccessReason) {   //星공
+        //console.log(itemState.currentStar + "星 -> " + (itemState.currentStar + 1) + "星 강화 星공 (파방 적용 : " + forceValue.isPreventDestroy + ")");
         itemState.currentStar += 1;
-        itemState.chanceTime = 0;
+        itemState.chanceTime = 0; // 取消 chance time
     } else if (destroyCase < luck && !forceValue.isPreventDestroy) {    //파괴
-        //console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 실패 & 장비 파괴 (파방 적용 : " + forceValue.isPreventDestroy + ")");
-        itemState.currentStar = 12;
+        //console.log(itemState.currentStar + "星 -> " + (itemState.currentStar + 1) + "星 강화 실패 & 장비 파괴 (파방 적용 : " + forceValue.isPreventDestroy + ")");
+        itemState.currentStar = 6; // CMS 装备毁坏之后只剩下 6 星
         forceValue.destroyCount += 1;
         if(!statis.modeOn) {
             alert("Destroyed");
         }
     } else {    //실패 or 하락
-        if (itemState.currentStar < 10 || itemState.currentStar % 5 == 0) {  //10성 이하 & 15, 20성
-            //console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 실패 (파방 적용 : " + forceValue.isPreventDestroy + ")");
+        if (itemState.currentStar < 6 || itemState.currentStar % 5 == 0) {  //10星 이하 & 15, 20星
+            //console.log(itemState.currentStar + "星 -> " + (itemState.currentStar + 1) + "星 강화 실패 (파방 적용 : " + forceValue.isPreventDestroy + ")");
             //그러나 아무 일도 일어나지 않았다.
         } else {    //하락
-            //console.log(itemState.currentStar + "성 -> " + (itemState.currentStar + 1) + "성 강화 실패 & 강화 단계 하락 (파방 적용 : " + forceValue.isPreventDestroy + ")");
+            //console.log(itemState.currentStar + "星 -> " + (itemState.currentStar + 1) + "星 강화 실패 & 강화 단계 하락 (파방 적용 : " + forceValue.isPreventDestroy + ")");
             itemState.currentStar -= 1;
-            itemState.chanceTime += 1;
+            itemState.chanceTime = 0; // 取消 chance time
         }
     }
     forceValue.tryCount += 1;
