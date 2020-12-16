@@ -1,7 +1,7 @@
 # 星之力强化模拟器
 这是基于冒险岛 Online (MapleStory China) 的星之力强化模拟器，和 KMS 相比，此版本根据 CMS 的实际情况调整了成功率。
 
-https://starforce-cms.github.io/
+https://hikaricalyx.github.io/Starforce-Simulation-CMS/
 ![preview](https://i.imgur.com/NiARQFJ.png)
 
 ## TODO
