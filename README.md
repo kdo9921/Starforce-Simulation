@@ -5,7 +5,7 @@ https://hikaricalyx.github.io/Starforce-Simulation-CMS/
 ![preview](https://i.imgur.com/NiARQFJ.png)
 
 ## TODO
-- 修正 13-14 星、14-15 星、18-19 星、19-20 星的上星成功率
+- 修正 13-14 星、14-15 星、18-19 星、19-20 星的上星损坏率
 - 完全禁用 CMS 不存在的活动
 - 将消耗 meso 数量调整成星星数量
 
