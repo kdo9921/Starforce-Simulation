@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="zh-cn">
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-69835851-5"></script>
@@ -17,11 +17,11 @@
     <meta name="twitter:site" content="@ApteryxChan" />
     <meta name="twitter:creator" content="@ApteryxChan" />
     <meta property="og:url" content="https://apteryx.moe/maple/starforce" />
-    <meta property="og:title" content="스타포스 시뮬레이션" />
-    <meta property="og:description" content="메이플스토리 스타포스 강화 시뮬레이션입니다. 여기서 운 다 쓰시고 인게임의 장비를 재물로 쓰시면 됩니다." />
+    <meta property="og:title" content="CMS 星之力强化模拟器" />
+    <meta property="og:description" content="这是基于冒险岛 Online (MapleStory China) 的星之力模拟器。和其它区服相比，在 CMS 上星更令人心疼，要试试吗？" />
     <meta property="og:image" content="./img/fav.png" />
-    <title>스타포스 시뮬레이션</title>
-    <meta name="description" content="메이플스토리 스타포스 강화 시뮬레이션입니다. 여기서 운 다 쓰시고 인게임의 장비를 재물로 쓰시면 됩니다.">
+    <title>CMS 星之力强化模拟器</title>
+    <meta name="description" content="这是基于冒险岛 Online (MapleStory China) 的星之力模拟器。和其它区服相比，在 CMS 上星更令人心疼，要试试吗？">
     <script type="text/javascript" src="./animate.js"></script>
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
@@ -34,11 +34,11 @@
 </head>
 <body>
     <div id="background"></div>
-    <h1 id="title" onclick="checkBono();">스타포스 시뮬레이션</h1>
+    <h1 id="title" onclick="checkBono();">星之力强化模拟器（CMS）</h1>
     <table id="setTable">
         <tr>
             <td>
-                <p>레벨 : </p>
+                <p>等级 : </p>
             </td>
             <td>
                 <select name="level" onchange="setValue();" id="level">
@@ -49,14 +49,16 @@
                     <option value="140">140</option>
                     <option value="150">150</option>
                     <option value="160" selected="selected">160</option>
+                    <option value="170">170</option>
+                    <option value="180">180</option>
                     <option value="200">200</option>
                 </select>
             </td>
             <td>
-                <p>파괴횟수 : </p><p id="destroyCount"></p>
+                <p>毁坏次数 : </p><p id="destroyCount"></p>
             </td>
             <td>
-                <p>시행횟수 : </p><p id="tryCount"></p>
+                <p>尝试次数 : </p><p id="tryCount"></p>
             </td>
         </tr>
     </table>
@@ -76,50 +78,51 @@
             </div>
         </div>
         <div id="option">
-            <div id="catch" class="common"><p>스타캐치 사용</p><input type="checkbox" id="isCatch" checked="checked"></div>
-            <div id="preventDestroyBox" class="common"><p>파괴방지</p><input type="checkbox" id="preventDestroy" onchange="setValue();"></div>
+            <div id="catch" class="common"><p>解除“抓星星”</p><input type="checkbox" id="isCatch" checked="checked"></div>
+            <div id="preventDestroyBox" class="common"><p>防止损坏</p><input type="checkbox" id="preventDestroy" onchange="setValue();"></div>
         </div>
         <div id="priceBox" class="common">
-            <p>필요한 메소 :</p>
+            <p>所需星星 :</p>
             <p id="price"></p>
         </div>
         <div class="common">
-            <p>사용한 메소 :</p>
+            <p>总消耗星星 :</p>
             <p id="totalUse"></p>
         </div>
         <div id="btnBox">
-            <button id="force" onclick="force();" value="강화">강화</button>
-            <button id="reset" onclick="reset();setValue();" value="초기화">초기화</button>
+            <button id="force" onclick="force();" value="강화">强化</button>
+            <button id="reset" onclick="reset();setValue();" value="重置">重置</button>
         </div>
     </div>
     <br>
     <nav>
         <hr>
-        <h3>스타캐치 설정</h3>
-        <input type="radio" name="starcatch" checked="checked"><p>곱적용</p>
-        <input type="radio" name="starcatch"><p>합적용</p><br>
-        <p>확률 설정(%)</p><input type="number" min="0" max="5" value="5" id="starcatchPercent">
-        <h3>이벤트 설정</h3>
+        <h3>抓星星成功率加成算法</h3>
+        <input type="radio" name="starcatch" checked="checked"><p>乘法</p>
+        <input type="radio" name="starcatch"><p>加法</p><br>
+        <p>成功率加成(%)</p><input type="number" min="0" max="5" value="5" id="starcatchPercent">
+        <h3>活动优惠</h3>
         <input type="radio" name="event" onchange="setValue();" checked="checked">
-        <p>이벤트 없음</p><br>
+        <p>没有活动</p><br>
+        <input type="radio" name="event" onchange="setValue();" disabled>
+        <p>CMS 没有的优惠方式</p><br>
         <input type="radio" name="event" onchange="setValue();">
-        <p>10성 이하 1+1</p><br>
+        <p>星之力强化费用优惠 30%</p><br>
         <input type="radio" name="event" onchange="setValue();">
-        <p>강화비용 30% 할인</p><br>
-        <input type="radio" name="event" onchange="setValue();">
-        <p>5성, 10성, 15성 100%</p><br>
+        <p>5星, 10星, 15星 强化成功率 100%</p><br>
         <input type="checkbox" id="freePreventDestroyEvent" onclick="setValue();">
-        <p>무료 파괴방지 (15성까지)</p><br>
-        <h3>MVP/PC방 할인</h3>
-        <p>MVP 등급</p>
+        <p>15星以下不会损坏</p><br>
+        <h3>MVP 优势</h3>
+        <p>MVP 等级</p>
         <select name="mvp" id="mvp" onchange="setValue();">
-            <option value="0">혜택 없음</option>
-            <option value="3">실버</option>
-            <option value="5">골드</option>
-            <option value="10">다이아</option>
+            <option value="0">无</option>
+            <option value="3">白银</option>
+            <option value="5">黄金</option>
+            <option value="10">钻石</option>
+            <option value="15">红钻</option>
         </select>
         <br>
-        <input type="checkbox" id="PCcafe" onchange="setValue();"><p>PC방 할인</p>
+        <input type="checkbox" id="PCcafe" onchange="setValue();" disabled><p>CMS 没有的网吧优惠</p>
         <hr>
         <h3>통계</h3>
         <p><span style="color: red">경고 </span>사용자의 기기에서 계산하며 23성 이상의 목표나 너무 큰 시행횟수를 넣을경우 스타포스 시뮬레이션이나 실행중인 다른 프로그램이 비정상적으로 종료될 수 있습니다.</p><br>
@@ -134,7 +137,7 @@
         </div>
         <hr>
         <div id="copyright">
-            <p>제작 : ApteryxChan (엘리시움)<br><br>버그 발견시 <a href="mailto:kdo9921@apteryx.moe">이메일</a>이나 <a href="https://twitter.com/ApteryxChan">트위터</a>로 제보해주세요<br>GitHub에서 보기 : <a href="https://github.com/kdo9921/Starforce-Simulation">Starforce-Simulation</a><br></p>
+            <p>原作者 : ApteryxChan (KMS Elysium 区)<br>CMS 修改版作者 : HikariCalyx (CMS 威尔区)<br />GitHub 代码仓库 : <a href="https://github.com/HikariCalyx/Starforce-Simulation-CMS">Starforce-Simulation-CMS</a><br></p>
         </div>
     </nav>    
 </body>
