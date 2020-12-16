@@ -9,4 +9,10 @@ https://hikaricalyx.github.io/Starforce-Simulation-CMS/
 - 完全禁用 CMS 不存在的活动
 - 将消耗 meso 数量调整成星星数量
 
+## Differences to other regions
+- No chance time
+- Success rate / failure rate is completely different
+- After enhancement, the equipment will become untradeable
+- If destroyed, the weapon will become into 6-star weapon
+
 [星级有可能上上下下，缺乏耐心及心脏不适者慎用（CMS 策划原话](https://mxdact.web.sdo.com/project/v122/)
