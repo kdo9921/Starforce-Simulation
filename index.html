@@ -118,12 +118,17 @@
         <input type="checkbox" id="PCcafe" onchange="setValue();"><p>PC방 할인</p>
         <hr>
         <h3>통계</h3>
-        <p><span style="color: red">경고 </span>사용자의 기기에서 계산하며 23성 이상의 목표나 너무 큰 시행횟수를 넣을경우 스타포스 시뮬레이션이나 실행중인 다른 프로그램이 비정상적으로 종료될 수 있습니다.</p><br>
+        <p>목표 강화 수치까지의 강화를 여러 번 시도합니다. 이벤트와 할인, 스타캐치는 위에서 설정해 주세요.</p><br>
         <p>시작 강화 수치</p><input type="number" min="0" max="24" value="12" id="statisStartStar"><br>
-        <p>목표 강화 수치</p><input type="number" min="0" max="25" value="15" id="statisGoalStar"><br>
-        <p>시행 횟수</p><input type="number" min="1" value="100" id="statisNumOfTry"><br>
-        <p>파괴시 복구비용</p><input type="number" value="0" id="statisRestore"><br>
+        <p>목표 강화 수치</p><input type="number" min="0" max="25" value="22" id="statisGoalStar"><br>
+        <p>시행 횟수</p><input type="number" min="1" value="1000" id="statisNumOfTry"><br>
+        <p>파괴시 복구비용</p><input type="number" value="0" id="statisRestore"> <button id="noUpgrade" onclick="restore();">1억 추가</button><br>
+        <input type="checkbox" id="preventDestroy15" onclick="setValue();">
+        <p>12 ~ 15성 파괴방지</p><br>
+        <input type="checkbox" id="preventDestroy17" onclick="setValue();">
+        <p>15 ~ 17성 파괴방지</p><br>
         <button id="btnStatis" onclick="setStatis();" value="통계내기">통계내기</button>
+        <p><span style="color: red">경고 </span>사용자의 기기에서 계산하며 23성 이상의 목표나 너무 큰 시행횟수를 넣을경우 스타포스 시뮬레이션이나 실행중인 다른 프로그램이 비정상적으로 종료될 수 있습니다.</p><br>
         <div id="statisResult"></div>
         <div id="chart">
             

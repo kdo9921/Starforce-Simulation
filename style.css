@@ -160,7 +160,9 @@ p {
     margin: 5px;
     background-color: #4CAF50;
 }
-
+#noUpgrade {
+    background-color: #4CAF50;
+}
 #reset {
     width: calc(50% - 10px);
     float: right;

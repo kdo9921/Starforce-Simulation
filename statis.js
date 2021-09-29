@@ -4,7 +4,8 @@ var statis = {
     start : 0,
     goal : 0,
     restore : 0,
-    numOfTry : 0   //통계낼 장비의 수
+    numOfTry : 0,  //통계낼 장비의 수
+    destroyCount : 0
 }
 var statisResult = {
     max : 0,
@@ -29,8 +30,10 @@ function showStatis() {
     console.log("\n\n최저 사용 메소 : " + addComma(statisResult.min));
     document.getElementById('statisResult').innerHTML = "<p>평균 사용 메소 : " 
     + addComma(Math.round(statisResult.sum / statis.numOfTry)) + "</p><br><p>최대 사용 메소 : " 
-    + addComma(statisResult.max) + "</p><br><p>최저 사용 메소 : " + addComma(statisResult.min) +"</p>";
-
+    + addComma(statisResult.max) + "</p><br><p>최저 사용 메소 : " + addComma(statisResult.min) +"</p><br>"
+    + "<p>평균 파괴 횟수 : " + (statis.destroyCount / statis.numOfTry).toFixed(3) + "</p><br>";
+    console.log(statis.destroyCount);
+    console.log(statis.numOfTry);
 }
 function startStatis() {
     statis.modeOn = true;
@@ -54,12 +57,15 @@ function startStatis() {
     }
     statis.modeOn = false;
     showStatis();
+    reset();
+    showInfo();
 }
 function setStatis() {
     statis.start = Math.floor(Number(document.getElementById('statisStartStar').value));
     statis.goal = Math.floor(Number(document.getElementById('statisGoalStar').value));
     statis.numOfTry = Math.floor(Number(document.getElementById('statisNumOfTry').value));
     statis.restore = Math.floor(Number(document.getElementById('statisRestore').value));
+    statis.destroyCount = 0;
     if (isNaN(statis.start + statis.goal + statis.numOfTry + statis.restore)) {
         alert("오류 :입력된 값이 숫자가 아닙니다.");
         console.log(statis.start);
