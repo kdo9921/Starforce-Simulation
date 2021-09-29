@@ -10,7 +10,7 @@ var forceValue = {
     isPreventDestroy : false,
     tryCount : 0,
     starcatchPercentage : 5.0, //단위 1%
-    starcatchMultiple : true
+    starcatchUse : true
 }
 var discount = {
     isPcCafe : false,
@@ -200,8 +200,7 @@ function setValue() {   //설정을 읽어 수치를 조정하고 showInfo()를 
     setDiscount();
 
     //스타캐치 설정
-    forceValue.starcatchMultiple = document.getElementsByName("starcatch")[0].checked;
-    forceValue.starcatchPercentage = Number(document.getElementById("starcatchPercent").value);
+    forceValue.starcatchUse = document.getElementById("isCatch").checked;
 
     forceValue.currentCost = costDB[itemState.itemLevelIndex][itemState.currentStar];
     forceValue.currentCost = forceValue.currentCost * discount.totalDiscount;
@@ -224,11 +223,10 @@ function force() {  //강화
     }
 
     var successCase = percentDB[itemState.currentStar][0];
-    if (forceValue.starcatchMultiple) {    //스타캐치 곱적용
+    
+    if (forceValue.starcatchUse) {    //스타캐치 사용
         successCase = successCase * (forceValue.starcatchPercentage * 0.01 + 1.00);
-    } else {    //스타캐치 합적용
-        successCase = successCase + (forceValue.starcatchPercentage * 10);
-    }
+    } 
     var destroyCase = 1000 - percentDB[itemState.currentStar][3]
     var luck = Math.floor(Math.random() * 1000);
     var otherSuccessReason = false;
