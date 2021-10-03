@@ -19,6 +19,7 @@ button {
     border: none;
     box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
     font-weight: bold;
+    color: black;
 } 
 #background {
     width: 100%;
