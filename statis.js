@@ -31,7 +31,7 @@ function showStatis() {
     document.getElementById('statisResult').innerHTML = "<p>평균 사용 메소 : " 
     + addComma(Math.round(statisResult.sum / statis.numOfTry)) + "</p><br><p>최대 사용 메소 : " 
     + addComma(statisResult.max) + "</p><br><p>최저 사용 메소 : " + addComma(statisResult.min) +"</p><br>"
-    + "<p>평균 파괴 횟수 : " + (statis.destroyCount / statis.numOfTry).toFixed(3) + "</p><br>";
+    + "<p>평균 파괴 횟수 : " + (statis.destroyCount == 0 ? "0" : ((statis.destroyCount / statis.numOfTry).toFixed(3))) + "</p><br>";
     console.log(statis.destroyCount);
     console.log(statis.numOfTry);
 }
