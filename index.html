@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-69835851-5"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
         gtag('config', 'UA-69835851-5');
     </script>
     <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no viewport-fit=cover">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@Chamdarae" />
@@ -33,113 +38,132 @@
     <script type="text/javascript" src="./main.js"></script>
     <script type="text/javascript" src="./statis.js"></script>
 </head>
+
 <body>
     <div id="background"></div>
-    <h1 id="title" onclick="checkBono();">스타포스 시뮬레이션</h1>
-    <table id="setTable">
-        <tr>
-            <td>
-                <p>레벨 : </p>
-            </td>
-            <td>
-                <select name="level" onchange="setValue();" id="level">
-                    <option value="100">100</option>
-                    <option value="110">110</option>
-                    <option value="120">120</option>
-                    <option value="130">130</option>
-                    <option value="140">140</option>
-                    <option value="150">150</option>
-                    <option value="160" selected="selected">160</option>
-                    <option value="200">200</option>
-                </select>
-            </td>
-            <td>
-                <p>파괴횟수 : </p><p id="destroyCount"></p>
-            </td>
-            <td>
-                <p>시행횟수 : </p><p id="tryCount"></p>
-            </td>
-        </tr>
-    </table>
-    <div id="ui">
-        <div id="star"></div>
-        <div id="notice" class="common"></div>
-        <div id="center">
-            <div id="itemImgBox">
-                <div id="itemImg">
+    <div id="content">
+        <h1 id="title" onclick="checkBono();">스타포스 시뮬레이션</h1>
+        <table id="setTable">
+            <tr>
+                <td>
+                    <p>레벨 : </p>
+                </td>
+                <td>
+                    <select name="level" onchange="setValue();" id="level">
+                        <option value="100">100</option>
+                        <option value="110">110</option>
+                        <option value="120">120</option>
+                        <option value="130">130</option>
+                        <option value="140">140</option>
+                        <option value="150">150</option>
+                        <option value="160" selected="selected">160</option>
+                        <option value="200">200</option>
+                    </select>
+                </td>
+                <td>
+                    <p>파괴횟수 : </p>
+                    <p id="destroyCount"></p>
+                </td>
+                <td>
+                    <p>시행횟수 : </p>
+                    <p id="tryCount"></p>
+                </td>
+            </tr>
+        </table>
+        <div id="ui">
+            <div id="star"></div>
+            <div id="notice" class="common"></div>
+            <div id="center">
+                <div id="itemImgBox">
+                    <div id="itemImg">
 
+                    </div>
+                </div>
+                <div id="infoBox" class="common">
+                    <div id="info">
+
+                    </div>
                 </div>
             </div>
-            <div id="infoBox" class="common">
-                <div id="info">
-
+            <div id="option">
+                <div id="catch" class="common">
+                    <p>스타캐치 사용</p><input type="checkbox" id="isCatch" checked="checked">
+                </div>
+                <div id="preventDestroyBox" class="common">
+                    <p>파괴방지</p><input type="checkbox" id="preventDestroy" onchange="setValue();">
                 </div>
             </div>
+            <div id="priceBox" class="common">
+                <p>필요한 메소 :</p>
+                <p id="price"></p>
+            </div>
+            <div class="common">
+                <p>사용한 메소 :</p>
+                <p id="totalUse"></p>
+            </div>
+            <div id="btnBox">
+                <button id="force" onclick="force();" value="강화">강화</button>
+                <button id="reset" onclick="reset();setValue();" value="초기화">초기화</button>
+            </div>
         </div>
-        <div id="option">
-            <div id="catch" class="common"><p>스타캐치 사용</p><input type="checkbox" id="isCatch" checked="checked"></div>
-            <div id="preventDestroyBox" class="common"><p>파괴방지</p><input type="checkbox" id="preventDestroy" onchange="setValue();"></div>
-        </div>
-        <div id="priceBox" class="common">
-            <p>필요한 메소 :</p>
-            <p id="price"></p>
-        </div>
-        <div class="common">
-            <p>사용한 메소 :</p>
-            <p id="totalUse"></p>
-        </div>
-        <div id="btnBox">
-            <button id="force" onclick="force();" value="강화">강화</button>
-            <button id="reset" onclick="reset();setValue();" value="초기화">초기화</button>
+        <br>
+        <div id="setting">
+            <hr>
+            <h3>이벤트 설정</h3>
+            <input type="radio" name="event" onchange="setValue();" checked="checked">
+            <p>이벤트 없음</p><br>
+            <input type="radio" name="event" onchange="setValue();">
+            <p>10성 이하 1+1</p><br>
+            <input type="radio" name="event" onchange="setValue();">
+            <p>강화비용 30% 할인</p><br>
+            <input type="radio" name="event" onchange="setValue();">
+            <p>5성, 10성, 15성 100%</p><br>
+            <input type="checkbox" id="freePreventDestroyEvent" onclick="setValue();">
+            <p>무료 파괴방지 (15성까지)</p><br>
+            <h3>MVP/PC방 할인</h3>
+            <p>MVP 등급</p>
+            <select name="mvp" id="mvp" onchange="setValue();">
+                <option value="0">혜택 없음</option>
+                <option value="3">실버</option>
+                <option value="5">골드</option>
+                <option value="10">다이아</option>
+            </select>
+            <br>
+            <input type="checkbox" id="PCcafe" onchange="setValue();">
+            <p>PC방 할인</p>
+            <hr>
+            <h3>통계</h3>
+            <p>목표 강화 수치까지의 강화를 여러 번 시도합니다. 장비 레벨과 이벤트, 할인, 스타캐치 사용 여부는 위에서 설정해 주세요.</p><br>
+            <p>시작 강화 수치</p><input type="number" min="0" max="24" value="12" id="statisStartStar"><br>
+            <p>목표 강화 수치</p><input type="number" min="0" max="25" value="22" id="statisGoalStar"><br>
+            <p>시행 횟수</p><input type="number" min="1" value="1000" id="statisNumOfTry"><br>
+            <p>파괴시 복구비용</p><input type="number" value="0" id="statisRestore"> <button id="noUpgrade"
+                onclick="restore();">1억 추가</button><br>
+            <input type="checkbox" id="preventDestroy15" onclick="setValue();">
+            <p>12 ~ 15성 파괴방지</p><br>
+            <input type="checkbox" id="preventDestroy17" onclick="setValue();">
+            <p>15 ~ 17성 파괴방지</p><br>
+            <button id="btnStatis" onclick="setStatis();" value="통계내기">통계내기</button>
+            <p><span style="color: red">경고 </span>사용자의 기기에서 계산하며 23성 이상의 목표나 너무 큰 시행횟수를 넣을경우 스타포스 시뮬레이션이나 실행중인 다른 프로그램이
+                비정상적으로 종료될 수 있습니다.</p><br>
+            <div id="statisResult"></div>
+            <div id="chart">
+
+            </div>
+            <hr>
+            <div id="copyright">
+                <p>제작 : Chamdarae (엘리시움)<br><br>버그 발견시
+                    <a href="mailto:kiwi@darae.dev">이메일</a>이나
+                    <a href="https://twitter.com/_darae_">트위터</a>로 제보해주세요<br>GitHub에서 보기 : <a
+                        href="https://github.com/kdo9921/Starforce-Simulation">Starforce-Simulation</a><br></p>
+            </div>
+            <div id="ad">
+                <a href="https://maple.gg/guild/elysium/메구밍">
+                    <img src="./img/ad_megumin.jpg">
+                </a>
+            </div>
         </div>
     </div>
-    <br>
-    <nav>
-        <hr>
-        <h3>이벤트 설정</h3>
-        <input type="radio" name="event" onchange="setValue();" checked="checked">
-        <p>이벤트 없음</p><br>
-        <input type="radio" name="event" onchange="setValue();">
-        <p>10성 이하 1+1</p><br>
-        <input type="radio" name="event" onchange="setValue();">
-        <p>강화비용 30% 할인</p><br>
-        <input type="radio" name="event" onchange="setValue();">
-        <p>5성, 10성, 15성 100%</p><br>
-        <input type="checkbox" id="freePreventDestroyEvent" onclick="setValue();">
-        <p>무료 파괴방지 (15성까지)</p><br>
-        <h3>MVP/PC방 할인</h3>
-        <p>MVP 등급</p>
-        <select name="mvp" id="mvp" onchange="setValue();">
-            <option value="0">혜택 없음</option>
-            <option value="3">실버</option>
-            <option value="5">골드</option>
-            <option value="10">다이아</option>
-        </select>
-        <br>
-        <input type="checkbox" id="PCcafe" onchange="setValue();"><p>PC방 할인</p>
-        <hr>
-        <h3>통계</h3>
-        <p>목표 강화 수치까지의 강화를 여러 번 시도합니다. 장비 레벨과 이벤트, 할인, 스타캐치 사용 여부는 위에서 설정해 주세요.</p><br>
-        <p>시작 강화 수치</p><input type="number" min="0" max="24" value="12" id="statisStartStar"><br>
-        <p>목표 강화 수치</p><input type="number" min="0" max="25" value="22" id="statisGoalStar"><br>
-        <p>시행 횟수</p><input type="number" min="1" value="1000" id="statisNumOfTry"><br>
-        <p>파괴시 복구비용</p><input type="number" value="0" id="statisRestore"> <button id="noUpgrade" onclick="restore();">1억 추가</button><br>
-        <input type="checkbox" id="preventDestroy15" onclick="setValue();">
-        <p>12 ~ 15성 파괴방지</p><br>
-        <input type="checkbox" id="preventDestroy17" onclick="setValue();">
-        <p>15 ~ 17성 파괴방지</p><br>
-        <button id="btnStatis" onclick="setStatis();" value="통계내기">통계내기</button>
-        <p><span style="color: red">경고 </span>사용자의 기기에서 계산하며 23성 이상의 목표나 너무 큰 시행횟수를 넣을경우 스타포스 시뮬레이션이나 실행중인 다른 프로그램이 비정상적으로 종료될 수 있습니다.</p><br>
-        <div id="statisResult"></div>
-        <div id="chart">
-            
-        </div>
-        <hr>
-        <div id="copyright">
-            <p>제작 : Chamdarae (엘리시움)<br><br>버그 발견시 
-                <a href="mailto:kiwi@darae.dev">이메일</a>이나 
-                <a href="https://twitter.com/_darae_">트위터</a>로 제보해주세요<br>GitHub에서 보기 : <a href="https://github.com/kdo9921/Starforce-Simulation">Starforce-Simulation</a><br></p>
-        </div>
-    </nav>    
 </body>
+
 </html>
