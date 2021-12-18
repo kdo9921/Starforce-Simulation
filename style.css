@@ -189,10 +189,11 @@ p {
     text-align: right;
     margin-bottom: 20px;
 }
-#ad img {
+#megumin img {
     width: 100%;
     height: auto;
     margin-bottom: 20px;
+    border-radius: 10px;
 }
 a:link {text-decoration: none; color: #9ce159;}
 a:visited {text-decoration: none; color: #9ce159;}
